@@ -1,0 +1,12 @@
+<h2>Publications</h2>
+
+<% @publications.each do |publication| %>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"><%= publication.title %></h5>
+      <p class="card-text"><%= publication.description %></p>
+      <p class="card-text"><%= publication.file_url %>></p>
+      <%= link_to 'View more details', publication_path(publication), class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
