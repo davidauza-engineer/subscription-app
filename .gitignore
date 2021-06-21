@@ -37,3 +37,6 @@ yarn-debug.log*
 
 # IDE related files
 .idea
+
+# Environment configuration files
+.env
