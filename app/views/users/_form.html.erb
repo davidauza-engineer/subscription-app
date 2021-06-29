@@ -1,0 +1,40 @@
+<head>
+  <title>Checkout</title>
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <button id="checkout">Subscribe</button>
+  <script>
+    const stripe = Stripe('pk_test_51J4m2pFM4vO1LMio5r9ihQ4ydmGqs4yengF4KDWmkok7j9ayUu891DgV0GCCTQgvKvEquz3ZD0eaTNE1LHiz5Jc1005nPe0eBD');
+
+    const PRICE_ID = 'price_1J4mG1FM4vO1LMiomNPFZyVk';
+
+    var AUTH_TOKEN = document.querySelector('meta[name=csrf-token]').getAttribute('content');
+
+    const createCheckoutSession = function (priceId) {
+      return fetch('/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': AUTH_TOKEN
+        },
+        body: JSON.stringify({
+          priceId: priceId
+        })
+      }).then(function (result) {
+        return result.json();
+      });
+    };
+
+    document
+        .getElementById('checkout')
+        .addEventListener('click', function (evt) {
+          createCheckoutSession(PRICE_ID).then(function (data) {
+            stripe.redirectToCheckout({
+              sessionId: data.sessionId
+            })
+                .then(handleResult);
+          });
+        });
+  </script>
+</body>

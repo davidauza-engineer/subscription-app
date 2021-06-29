@@ -39,7 +39,6 @@ gem 'jquery-rails'
 gem 'stripe'
 
 # Dotenv
-
 gem 'dotenv-rails', groups: %i[development test]
 
 group :development, :test do
